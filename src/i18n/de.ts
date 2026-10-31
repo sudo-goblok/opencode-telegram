@@ -743,4 +743,11 @@ export const de: I18nDictionary = {
   "local_command.empty_output": "The command produced no output.",
   "local_command.failed": "Command failed with exit code {exitCode}: {stderr}",
   "local_command.timeout": "The command timed out.",
+  "cmd.description.image": "Ein Bild aus einem Prompt erzeugen",
+  "image.usage": "Verwendung: /image <prompt>",
+  "image.generating": "🎨 Bild wird erzeugt…",
+  "image.requires_v2": "Die Bilderzeugung erfordert OpenCode V2.",
+  "image.no_model": "Kein bildfähiges Modell verfügbar. Setze OPENCODE_IMAGE_MODEL_PROVIDER und OPENCODE_IMAGE_MODEL_ID.",
+  "image.failed": "❌ Bilderzeugung fehlgeschlagen: {error}",
+  "image.unknown_error": "unbekannter Fehler",
 };

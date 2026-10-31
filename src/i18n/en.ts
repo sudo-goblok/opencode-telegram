@@ -713,6 +713,13 @@ export const en = {
   "local_command.empty_output": "The command produced no output.",
   "local_command.failed": "Command failed with exit code {exitCode}: {stderr}",
   "local_command.timeout": "The command timed out.",
+  "cmd.description.image": "Generate an image from a prompt",
+  "image.usage": "Usage: /image <prompt>",
+  "image.generating": "🎨 Generating image…",
+  "image.requires_v2": "Image generation requires OpenCode V2.",
+  "image.no_model": "No image-capable model is available. Set OPENCODE_IMAGE_MODEL_PROVIDER and OPENCODE_IMAGE_MODEL_ID.",
+  "image.failed": "❌ Image generation failed: {error}",
+  "image.unknown_error": "unknown error",
 } as const;
 
 export type I18nKey = keyof typeof en;

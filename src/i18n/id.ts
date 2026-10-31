@@ -716,4 +716,11 @@ export const id: I18nDictionary = {
   "local_command.empty_output": "Perintah tidak menghasilkan output.",
   "local_command.failed": "Perintah gagal dengan exit code {exitCode}: {stderr}",
   "local_command.timeout": "Perintah kehabisan waktu.",
+  "cmd.description.image": "Buat gambar dari prompt",
+  "image.usage": "Pemakaian: /image <prompt>",
+  "image.generating": "🎨 Membuat gambar…",
+  "image.requires_v2": "Pembuatan gambar membutuhkan OpenCode V2.",
+  "image.no_model": "Tidak ada model yang bisa membuat gambar. Isi OPENCODE_IMAGE_MODEL_PROVIDER dan OPENCODE_IMAGE_MODEL_ID.",
+  "image.failed": "❌ Gagal membuat gambar: {error}",
+  "image.unknown_error": "kesalahan tidak diketahui",
 };

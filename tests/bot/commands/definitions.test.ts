@@ -22,6 +22,15 @@ describe("bot/commands/definitions", () => {
     expect(BUILT_IN_COMMAND_NAMES).toContain("reload");
   });
 
+  it("lists /image on V2 and leaves it out on V1", async () => {
+    const v2 = await loadDefinitions("v2");
+    expect(v2.BOT_COMMANDS.map(({ command }) => command)).toContain("image");
+
+    const v1 = await loadDefinitions("v1");
+    expect(v1.BOT_COMMANDS.map(({ command }) => command)).not.toContain("image");
+    expect(v1.BUILT_IN_COMMAND_NAMES).not.toContain("image");
+  });
+
   it("leaves /reload out everywhere on V1", async () => {
     const { BOT_COMMANDS, BUILT_IN_COMMAND_NAMES, getLocalizedBotCommands } =
       await loadDefinitions("v1");

@@ -665,4 +665,11 @@ export const zh: I18nDictionary = {
   "local_command.empty_output": "The command produced no output.",
   "local_command.failed": "Command failed with exit code {exitCode}: {stderr}",
   "local_command.timeout": "The command timed out.",
+  "cmd.description.image": "根据提示词生成图片",
+  "image.usage": "用法：/image <prompt>",
+  "image.generating": "🎨 正在生成图片…",
+  "image.requires_v2": "图片生成需要 OpenCode V2。",
+  "image.no_model": "没有可用于生成图片的模型。请设置 OPENCODE_IMAGE_MODEL_PROVIDER 和 OPENCODE_IMAGE_MODEL_ID。",
+  "image.failed": "❌ 图片生成失败：{error}",
+  "image.unknown_error": "未知错误",
 };

@@ -718,4 +718,11 @@ export const tr: I18nDictionary = {
   "local_command.empty_output": "Komut herhangi bir çıktı üretmedi.",
   "local_command.failed": "Komut {exitCode} çıkış koduyla başarısız oldu: {stderr}",
   "local_command.timeout": "Komut zaman aşımına uğradı.",
+  "cmd.description.image": "Bir komuttan görsel oluştur",
+  "image.usage": "Kullanım: /image <prompt>",
+  "image.generating": "🎨 Görsel oluşturuluyor…",
+  "image.requires_v2": "Görsel oluşturma OpenCode V2 gerektirir.",
+  "image.no_model": "Görsel oluşturabilen model yok. OPENCODE_IMAGE_MODEL_PROVIDER ve OPENCODE_IMAGE_MODEL_ID ayarlayın.",
+  "image.failed": "❌ Görsel oluşturma başarısız: {error}",
+  "image.unknown_error": "bilinmeyen hata",
 };

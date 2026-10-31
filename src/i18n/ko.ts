@@ -723,4 +723,11 @@ export const ko: I18nDictionary = {
   "local_command.empty_output": "The command produced no output.",
   "local_command.failed": "Command failed with exit code {exitCode}: {stderr}",
   "local_command.timeout": "The command timed out.",
+  "cmd.description.image": "프롬프트로 이미지 생성",
+  "image.usage": "사용법: /image <prompt>",
+  "image.generating": "🎨 이미지 생성 중…",
+  "image.requires_v2": "이미지 생성에는 OpenCode V2가 필요합니다.",
+  "image.no_model": "이미지를 생성할 수 있는 모델이 없습니다. OPENCODE_IMAGE_MODEL_PROVIDER와 OPENCODE_IMAGE_MODEL_ID를 설정하세요.",
+  "image.failed": "❌ 이미지 생성 실패: {error}",
+  "image.unknown_error": "알 수 없는 오류",
 };

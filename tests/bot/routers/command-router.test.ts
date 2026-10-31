@@ -71,6 +71,7 @@ describe("bot/routers/command-router", () => {
       "opencode_stop",
       "reload",
     ]);
+    expect(commands).toContain("image");
 
     vi.unstubAllEnvs();
     vi.resetModules();

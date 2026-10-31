@@ -696,4 +696,11 @@ export const ar: I18nDictionary = {
   "local_command.empty_output": "The command produced no output.",
   "local_command.failed": "Command failed with exit code {exitCode}: {stderr}",
   "local_command.timeout": "The command timed out.",
+  "cmd.description.image": "إنشاء صورة من وصف",
+  "image.usage": "الاستخدام: /image <prompt>",
+  "image.generating": "🎨 جارٍ إنشاء الصورة…",
+  "image.requires_v2": "يتطلب إنشاء الصور OpenCode V2.",
+  "image.no_model": "لا يوجد نموذج قادر على إنشاء الصور. عيّن OPENCODE_IMAGE_MODEL_PROVIDER وOPENCODE_IMAGE_MODEL_ID.",
+  "image.failed": "❌ فشل إنشاء الصورة: {error}",
+  "image.unknown_error": "خطأ غير معروف",
 };

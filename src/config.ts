@@ -231,6 +231,10 @@ export const config = {
       provider: getEnvVar("OPENCODE_MODEL_PROVIDER", true), // Required
       modelId: getEnvVar("OPENCODE_MODEL_ID", true), // Required
     },
+    imageModel: {
+      provider: getEnvVar("OPENCODE_IMAGE_MODEL_PROVIDER", false),
+      modelId: getEnvVar("OPENCODE_IMAGE_MODEL_ID", false),
+    },
   },
   server: {
     logLevel: getEnvVar("LOG_LEVEL", false) || "info",

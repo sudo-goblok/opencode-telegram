@@ -1,11 +1,60 @@
-# OpenCode Telegram Bot
+# OpenCode Telegram Bot (fork)
 
-[![npm version](https://img.shields.io/npm/v/@grinev/opencode-telegram-bot)](https://www.npmjs.com/package/@grinev/opencode-telegram-bot)
-[![CI](https://github.com/grinev/opencode-telegram-bot/actions/workflows/ci.yml/badge.svg)](https://github.com/grinev/opencode-telegram-bot/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node.js](https://img.shields.io/badge/node-%3E%3D22.14-brightgreen)](https://nodejs.org)
-[![Follow updates](https://img.shields.io/badge/-Follow%20updates-333333?logo=x)](https://x.com/grin_rus)
-[![Community](https://img.shields.io/badge/Community-Telegram-26A5E4?logo=telegram&logoColor=white)](https://t.me/+Fj_IyKRi6-41MGUy)
+[![Fork of grinev/opencode-telegram-bot](https://img.shields.io/badge/fork-of%20grinev%2Fopencode--telegram--bot-181717?logo=github)](https://github.com/grinev/opencode-telegram-bot)
+
+> **Fork notice.** This repository is a fork of
+> [grinev/opencode-telegram-bot](https://github.com/grinev/opencode-telegram-bot).
+> It follows upstream and adds image generation from the chat. All credit for the original bot
+> belongs to Ruslan Grinev and the upstream contributors. Licensed under MIT; see [LICENSE](LICENSE).
+>
+> The published npm package `@grinev/opencode-telegram-bot` is upstream and does **not** include
+> `/image`. To use the fork, run it from source (see [Running from Source](#running-from-source)).
+
+## What this fork adds
+
+- **`/image <prompt>`** — generates an image with an image-capable model and sends it to the
+  chat. OpenCode V2 only. Results over 10 MB are sent as documents.
+- **Image model configuration** — `OPENCODE_IMAGE_MODEL_PROVIDER` and `OPENCODE_IMAGE_MODEL_ID`.
+  When both are unset, the bot uses the first model the server lists with image output.
+- **Clear failure messages** — a missing image model, a V1 server, provider quota/rate limits and
+  content filters are reported in the chat instead of a stack trace.
+- **Localization** — the new strings are translated into all 13 languages the bot ships with.
+- **Tests** — unit tests for model selection, request building, response decoding and command
+  error handling.
+
+Everything else — sessions, projects, worktrees, model switching, attachments, voice, scheduled
+tasks, Docker support — is upstream work. See [Upstream differences](#upstream-differences).
+
+## Catatan Bahasa Indonesia
+
+Fork ini adalah salinan dari [grinev/opencode-telegram-bot](https://github.com/grinev/opencode-telegram-bot)
+dengan satu tambahan utama: perintah **`/image <prompt>`** untuk membuat gambar langsung dari chat
+(OpenCode V2). Fitur multi-sesi, ganti model, kirim foto/dokumen, dan fitur lainnya berasal dari
+upstream dan tidak diubah.
+
+Menjalankan dari source:
+
+```bash
+git clone git@github.com:sudo-goblok/opencode-telegram.git
+cd opencode-telegram
+npm install
+cp .env.example .env
+# isi TELEGRAM_BOT_TOKEN, TELEGRAM_ALLOWED_USER_ID,
+# OPENCODE_SERVER_VERSION=v2, OPENCODE_SERVER_PASSWORD
+npm run dev
+```
+
+Konfigurasi gambar (opsional; kalau kosong, bot memilih model pertama yang punya output gambar):
+
+```env
+OPENCODE_IMAGE_MODEL_PROVIDER=openrouter
+OPENCODE_IMAGE_MODEL_ID=auto
+```
+
+Catatan: nilai environment yang sudah ada di shell **menimpa** isi `.env`. Kalau auth server
+gagal karena variabel warisan, jalankan `env -u OPENCODE_SERVER_USERNAME -u OPENCODE_SERVER_PASSWORD npm run dev`.
 
 OpenCode Telegram Bot is a secure Telegram client for [OpenCode](https://opencode.ai) CLI that runs on your local machine.
 
@@ -40,6 +89,7 @@ Languages: English (`en`), العربية (`ar`), Deutsch (`de`), Español (`es`
 - **Runtime settings** — use `/settings` to change runtime preferences; see [Runtime Settings](#runtime-settings)
 - **Voice prompts** — send voice/audio messages, transcribe them via a Whisper-compatible API, and optionally enable spoken replies in `/settings`
 - **File attachments** — send images, PDF documents, and text-based files to OpenCode, including multiple files in one Telegram album
+- **Image generation** — `/image <prompt>` generates an image with an image-capable model and sends it back to the chat (OpenCode V2)
 - **Scheduled tasks** — schedule prompts to run later or on a recurring interval; see [Scheduled Tasks](#scheduled-tasks)
 - **Message queue** — messages sent while the agent is busy are held and sent one by one afterwards (Queue) or, on OpenCode V2, steered into the running task (Steer); each waiting message is a bottom-keyboard button you can tap to withdraw it; `/detach` leaves waiting messages to the session they were sent to
 - **Context control** — tap the bottom 📊 button to see context usage and the latest assistant message's tokens and cost; compact from the details with an inline confirmation
@@ -155,6 +205,7 @@ opencode-telegram config
 | `/opencode_start` | Start the local OpenCode server on the bot machine      |
 | `/opencode_stop`  | Stop the local OpenCode server, including during a run  |
 | `/reload`         | Reload the OpenCode configuration without restarting the server (V2 only) |
+| `/image`          | Generate an image from a prompt (V2 only)               |
 | `/help`           | Show available commands                                 |
 
 Any regular text message is sent as a prompt to the coding agent only when no blocking interaction is active. Voice/audio messages are transcribed and then sent as prompts when STT is configured.
@@ -168,6 +219,36 @@ The `/messages` command displays all user messages in the current session, sorte
 **Revert** rolls back the session state to the selected message, discarding all subsequent messages and agent responses. This is useful when you want to retry a different approach from a specific point in the conversation.
 
 **Fork** creates a new session that branches from the selected message. The original session remains unchanged, and you can continue working in the new forked session. This is useful when you want to explore an alternative approach without losing the original conversation history.
+
+## Image Generation
+
+`/image <prompt>` asks an image-capable model to generate a picture and sends the result to
+the chat. It works with OpenCode V2 only.
+
+The model comes from `OPENCODE_IMAGE_MODEL_PROVIDER` + `OPENCODE_IMAGE_MODEL_ID`. When both are
+unset, the bot uses the first model the server lists with image output; when none is listed, the
+command replies with a configuration hint instead of calling the server. Large results are sent
+as documents, and provider errors (quota, rate limit, content filter) are shown in the chat.
+
+## Upstream differences
+
+This fork stays close to upstream so it can keep merging upstream changes.
+
+| Area | Change |
+| --- | --- |
+| Commands | Adds `/image` (V2 only); all other commands are unchanged |
+| Configuration | Adds `OPENCODE_IMAGE_MODEL_PROVIDER` and `OPENCODE_IMAGE_MODEL_ID` |
+| Source | Adds `src/bot/commands/image-command.ts` and `src/app/services/image-generation-service.ts` |
+| Tests | Adds tests for the image service, the command and the V2-only command registration |
+| Behavior | Everything else — sessions, projects, worktrees, models, attachments, queueing, scheduling — is upstream |
+
+Keeping the fork up to date:
+
+```bash
+git remote add upstream https://github.com/grinev/opencode-telegram-bot.git
+git fetch upstream
+git merge upstream/main
+```
 
 ## Scheduled Tasks
 
@@ -255,6 +336,8 @@ Configuration can be provided through process environment variables or an `.env`
 | `OPENCODE_SERVER_PASSWORD`                 | Server auth password (needed for V2, see [Old and New OpenCode Versions](#old-and-new-opencode-versions))                                   |    No    | —                        |
 | `OPENCODE_MODEL_PROVIDER`                  | Default model provider                                                                                                |   Yes    | `opencode`               |
 | `OPENCODE_MODEL_ID`                        | Default model ID                                                                                                      |   Yes    | `big-pickle`             |
+| `OPENCODE_IMAGE_MODEL_PROVIDER`            | Provider of the model used by `/image` (V2 only); with the ID unset, the first image-capable model is used            |    No    | —                        |
+| `OPENCODE_IMAGE_MODEL_ID`                  | Model ID used by `/image` (V2 only)                                                                                   |    No    | —                        |
 | `BOT_LOCALE`                               | Bot UI language (supported locale code, e.g. `en`, `ar`, `de`, `es`, `fr`, `id`, `it`, `ko`, `pt`, `ru`, `tr`, `zh`)  |    No    | `en`                     |
 | `SESSIONS_LIST_LIMIT`                      | Sessions per page in `/sessions` and maximum sessions in `/recent`                                                    |    No    | `10`                     |
 | `MESSAGES_LIST_LIMIT`                      | User messages per page in `/messages`                                                                                 |    No    | `10`                     |
@@ -465,8 +548,8 @@ Since the bot runs locally on your machine and connects to your local OpenCode s
 ### Running from Source
 
 ```bash
-git clone https://github.com/grinev/opencode-telegram-bot.git
-cd opencode-telegram-bot
+git clone git@github.com:sudo-goblok/opencode-telegram.git
+cd opencode-telegram
 npm install
 cp .env.example .env
 # Edit .env with your bot token, user ID, and model settings
@@ -483,8 +566,8 @@ npm run dev
 The bot can also be run as a container using Docker and Docker Compose. The image contains **only the Telegram bot**. OpenCode stays on the host and must already be running before you start the container (`opencode serve --port 4096` on V1; for V2 see below). `/opencode_start` and `/opencode_stop` do not work from inside the container.
 
 ```bash
-git clone https://github.com/grinev/opencode-telegram-bot.git
-cd opencode-telegram-bot
+git clone git@github.com:sudo-goblok/opencode-telegram.git
+cd opencode-telegram
 cp .env.example .env
 # Edit .env with your bot token, user ID, and model settings
 ```

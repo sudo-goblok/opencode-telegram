@@ -156,6 +156,7 @@ Current command set:
 - `/opencode_start` - start local OpenCode server
 - `/opencode_stop` - stop local OpenCode server; available during an active request and kills the local process even if health is hung
 - `/reload` - V2 only: reload the OpenCode configuration (config, plugins, providers and models, agents, commands, skills, MCP) for every loaded project without restarting the server; available during an active request, blocked while an interaction is on screen; the model menu reflects the reloaded providers at once
+- `/image` - V2 only: generate an image from a prompt with an image-capable model and send it to the chat
 - `/help` - show command help
 - `/ls` - interactive file browser for the current project directory; a text file can be attached to the next prompt from its detail view
 
@@ -228,6 +229,7 @@ Agent picker behavior:
 - [x] Service message visibility controls (thinking content and diff-file attachments)
 - [x] Sending code blocks as text files when needed
 - [x] Image attachments support (send photos/screenshots from Telegram to OpenCode, including multiple files in one Telegram album)
+- [x] Image generation from a prompt with `/image` (OpenCode V2)
 - [x] PDF attachments support (send documents from Telegram to OpenCode)
 - [x] Text file attachments support (send code/config/log files from Telegram to OpenCode)
 - [x] Voice/audio transcription via Whisper-compatible APIs (OpenAI/Groq/Together and compatible providers)
